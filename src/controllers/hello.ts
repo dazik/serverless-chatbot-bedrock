@@ -22,52 +22,52 @@ const bedrockAgentRuntimeClient = new BedrockAgentRuntimeClient({ region: config
 export const handler = async (event: APIGatewayEvent) => {
     console.log("Received " + JSON.stringify(event));
     const body: Message = JSON.parse(event.body as string);
-    // const retrieveParams: RetrieveCommandInput = {
-    //     knowledgeBaseId: "WTXMY8MXLZ",
-    //     retrievalQuery: {
-    //         text: body.text || ""
-    //     },
-    //     retrievalConfiguration: {
-    //       vectorSearchConfiguration: {
-    //         numberOfResults: 3,
-    //       },
-    //     },
-    //   };
+    const retrieveParams: RetrieveCommandInput = {
+        knowledgeBaseId: "WTXMY8MXLZ",
+        retrievalQuery: {
+            text: body.text || ""
+        },
+        retrievalConfiguration: {
+          vectorSearchConfiguration: {
+            numberOfResults: 3,
+          },
+        },
+      };
   
-    //   const retrieveCommand = new RetrieveCommand(retrieveParams);
-    //   const retrieveResponse = await bedrockAgentRuntimeClient.send(
-    //     retrieveCommand
-    //   );
+      const retrieveCommand = new RetrieveCommand(retrieveParams);
+      const retrieveResponse = await bedrockAgentRuntimeClient.send(
+        retrieveCommand
+      );
 
-    //   if (!retrieveResponse) {
-    //     return {
-    //         status: 500,
-    //         headers: defaultHeaders,
-    //         body: JSON.stringify({
-    //             message: "Error retrieving information from knowledge base"
-    //         })
-    //     }
-    //   }
+      if (!retrieveResponse) {
+        return {
+            status: 500,
+            headers: defaultHeaders,
+            body: JSON.stringify({
+                message: "Error retrieving information from knowledge base"
+            })
+        }
+      }
 
-    //   console.log(retrieveResponse);
+      console.log(retrieveResponse);
 
-    //   if (!retrieveResponse.retrievalResults ||retrieveResponse.retrievalResults.length === 0) {
-    //     return {
-    //         status: 404,
-    //         headers: defaultHeaders,
-    //         body: JSON.stringify({
-    //             message: "No information found in knowledge base"
-    //         })
-    //     }
-    //   }
+      if (!retrieveResponse.retrievalResults ||retrieveResponse.retrievalResults.length === 0) {
+        return {
+            status: 404,
+            headers: defaultHeaders,
+            body: JSON.stringify({
+                message: "No information found in knowledge base"
+            })
+        }
+      }
   
-    //   const retrievedInfo = retrieveResponse.retrievalResults
-    //     .map((result) => result.content?.text)
-    //     .join("\n\n");
-    //   const prompt = `Given the following information from the knowledge base:
-    //           ${retrievedInfo}
+      const retrievedInfo = retrieveResponse.retrievalResults
+        .map((result) => result.content?.text)
+        .join("\n\n");
+      const prompt = `Given the following information from the knowledge base:
+              ${retrievedInfo}
               
-    //           Now, answer this question: ${body.text}`;
+              Now, answer this question: ${body.text}`;
 
     const prompt = `Act as a friendly assistant and help me to get any information or answer given question: ${body.text}`
   
