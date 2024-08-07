@@ -1,0 +1,54 @@
+{
+  "name": "serverless-api",
+  "version": "0.1.0",
+  "bin": {
+    "serverless-api": "bin/serverless-api.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc -w",
+    "test": "jest",
+    "cdk": "cdk",
+    "deploy": "rimraf dist && node esbuild.js && cdk deploy",
+    "lint": "eslint",
+    "lint:updated": "pipe-git-updated --ext=js -- eslint --ignore-path .gitignore",
+    "prettier-check": "prettier -c --ignore-path .gitignore \"**/*.{css,html,js,json,md,yaml,yml}\"",
+    "prettier-check:updated": "pipe-git-updated --ext=css --ext=html --ext=js --ext=json --ext=md --ext=yaml --ext=yml -- prettier -c",
+    "prettify": "prettier --write **/*",
+    "prettify:updated": "pipe-git-updated --ext=css --ext=html --ext=js --ext=json --ext=md --ext=yaml --ext=yml -- prettier --write"
+  },
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.138",
+    "@types/jest": "^29.5.1",
+    "@types/node": "20.1.7",
+    "@types/uuid": "^9.0.8",
+    "aws-cdk": "2.145.0",
+    "git-list-updated": "^1.2.1",
+    "globals": "^15.4.0",
+    "jest": "^29.5.0",
+    "prettier": "^3.3.1",
+    "rimraf": "^5.0.7",
+    "ts-jest": "^29.1.0",
+    "ts-node": "^10.9.1",
+    "typescript": "~5.0.4",
+    "typescript-eslint": "^7.12.0"
+  },
+  "dependencies": {
+    "@aws-sdk/client-bedrock-agent-runtime": "^3.625.0",
+    "@aws-sdk/client-bedrock-runtime": "^3.624.0",
+    "@aws-sdk/client-cognito-identity-provider": "^3.592.0",
+    "@aws-sdk/client-dynamodb": "^3.592.0",
+    "@aws-sdk/client-eventbridge": "^3.600.0",
+    "@aws-sdk/client-s3": "^3.600.0",
+    "@aws-sdk/lib-dynamodb": "^3.596.0",
+    "@aws-sdk/s3-request-presigner": "^3.600.0",
+    "@aws-sdk/util-dynamodb": "^3.609.0",
+    "@aws-sdk/util-waiter": "^3.374.0",
+    "aws-cdk-lib": "^2.145.0",
+    "constructs": "^10.0.0",
+    "esbuild": "^0.21.4",
+    "joi": "^17.13.1",
+    "source-map-support": "^0.5.21",
+    "uuid": "^9.0.1"
+  }
+}
